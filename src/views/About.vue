@@ -76,7 +76,8 @@ import { Toast } from 'vant'
 export default {
   methods: {
     onClickLeft() {
-      Toast('返回')
+      this.$router.push('/')
+      localStorage.removeItem('token')
     }
   }
 }
