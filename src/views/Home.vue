@@ -32,7 +32,20 @@
         text="个人中心"
         to="/user"
       />
+      <van-grid-item
+        text="每日推荐"
+        to="/daily"
+      />
+      <van-grid-item
+        text="歌单"
+        to="/dailylist"
+      />
+      <van-grid-item
+        text="电台"
+        to="/dj"
+      />
     </van-grid>
+
   </div>
 </template>
 <script>

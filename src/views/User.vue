@@ -1,16 +1,19 @@
 <template>
   <div class="about">
-    <van-nav-bar title="个人中心">
-      <template #right>
-        <van-image
-          round
-          width="50px"
-          height="50px"
-          :src="user.avatarUrl"
-        />
-      </template>
-    </van-nav-bar>
-    <p>欢迎使用本产品，{{user.nickname}}</p>
+    <div>
+      <van-nav-bar title="个人中心">
+        <template #right>
+          <van-image
+            round
+            width="50px"
+            height="50px"
+            :src="user.avatarUrl"
+          />
+        </template>
+      </van-nav-bar>
+      <p>欢迎使用本产品，{{user.nickname}}</p>
+    </div>
+
     <van-grid
       clickable
       :column-num="2"
@@ -29,20 +32,23 @@
     <van-card
       title="个人资料"
       :thumb="user.avatarUrl"
-    ><template #desc>
-        <van-panel
-          :title="personal.nickname"
-          :desc="personal.signature"
-        >
-          <van-field
+      :style="{backgroundImage: 'url(' + coverImgUrl + ')', backgroundSize:'contain'}"
+    >
+      <template #desc>
+        <div class="card">
+          <div>昵称：{{personal.nickname}}</div>
+          <div>个签：{{personal.signature}}</div>
+          <div>性别：{{value}}</div>
+          <div>被关注：{{user.followeds}}</div>
+          <div>喜欢：{{user.follows}}</div>
+          <!-- <van-field
             clickable
             label="性别"
             :value="value"
             placeholder="选择性别"
             @click="showPicker = true"
-          />
-        </van-panel>
-
+          /> -->
+        </div>
       </template>
     </van-card>
     <van-popup
@@ -84,14 +90,15 @@ export default {
       value: '',
       showPicker: false,
       columns: ['保密', '男', '女'],
-      currentTime: ''
+      currentTime: '',
+      coverImgUrl: ''
     }
   },
   methods: {
     onClickLeft() {
       this.$router.push('/home')
       localStorage.removeItem('token')
-      console.log('http://localhost:3000/user/detail?uid=1497065990')
+      // console.log('http://localhost:3000/user/detail?uid=1497065990')
     },
     getAccount() {
       this.axios({
@@ -107,6 +114,7 @@ export default {
         this.personal.birthday = this.user.birthday
         this.personal.province = this.user.province
         console.log(this.user)
+        this.coverImgUrl = this.user.backgroundUrl
         this.gender()
       })
     },
@@ -165,3 +173,13 @@ export default {
   }
 }
 </script>
+<style>
+.card {
+  /* height: 300px; */
+  width: 200px;
+  background-color: #ffffff;
+  /* box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05); */
+  border-radius: 5px;
+  overflow: hidden;
+}
+</style>

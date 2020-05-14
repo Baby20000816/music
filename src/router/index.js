@@ -30,6 +30,21 @@ const routes = [
     path: '/backlogin',
     name: 'BackLogin',
     component: () => import('../views/BackLogin.vue')
+  },
+  {
+    path: '/daily',
+    name: 'Daily',
+    component: () => import('../views/Daily.vue')
+  },
+  {
+    path: '/dj',
+    name: 'Dj',
+    component: () => import('../views/Dj.vue')
+  },
+  {
+    path: '/dailylist',
+    name: 'DailyList',
+    component: () => import('../views/DailyList.vue')
   }
 ]
 
