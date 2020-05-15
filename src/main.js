@@ -15,7 +15,9 @@ import { Collapse, CollapseItem } from 'vant'
 import { Picker } from 'vant'
 import { Lazyload } from 'vant'
 import { List } from 'vant'
+import { Popup } from 'vant'
 
+Vue.use(Popup)
 Vue.use(List)
 Vue.use(Lazyload)
 Vue.use(Picker)

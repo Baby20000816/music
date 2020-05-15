@@ -15,13 +15,14 @@
     </van-nav-bar>
     <div class="bg">
       <div
-        v-for="(item,index) in musics"
+        v-for="(item,index) in djs"
         :key="index"
       >
         <van-card
           :title="item.name"
           :thumb="item.picUrl"
-        ><template #desc>
+        >
+          <!-- <template #desc>
             <van-panel>
               <div
                 v-for="(user,index1) in item.song.artists"
@@ -31,7 +32,7 @@
               </div>
               <div>专辑名：{{item.song.album.name}}</div>
             </van-panel>
-          </template>
+          </template> -->
         </van-card>
       </div>
     </div>

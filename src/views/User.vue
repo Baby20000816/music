@@ -182,4 +182,7 @@ export default {
   border-radius: 5px;
   overflow: hidden;
 }
+.about {
+  text-align: center;
+}
 </style>

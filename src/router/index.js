@@ -45,6 +45,11 @@ const routes = [
     path: '/dailylist',
     name: 'DailyList',
     component: () => import('../views/DailyList.vue')
+  },
+  {
+    path: '/list',
+    name: 'List',
+    component: () => import('../views/List.vue')
   }
 ]
 

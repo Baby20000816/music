@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about">
     <van-nav-bar title="歌单广场">
       <template #left>
         <van-grid
@@ -28,14 +28,10 @@
           <p>{{pic.name}}</p>
         </div>
       </van-swipe-item>
-
     </van-swipe>
 
     <van-list>
-
       <van-grid
-        id="resultScroll"
-        ref="myScrollbar"
         clickable
         :column-num="3"
         icon-size="100px"
@@ -47,7 +43,6 @@
           :text="item.name"
         />
       </van-grid>
-
     </van-list>
   </div>
 </template>
@@ -58,8 +53,6 @@ export default {
     return {
       musiclist: [],
       list: [],
-      loading: false,
-      finished: false,
       start: 7,
       end: 40
     }
@@ -86,28 +79,17 @@ export default {
         this.loading = false
         this.finished = true
       }
-    },
-    handleScroll() {
-      var that = this
-      var sh = that.$refs['myScrollbar'].$refs['wrap'].scrollHeight // 滚动条高度
-      var st = that.$refs['myScrollbar'].$refs['wrap'].scrollTop // 滚动条距离顶部的距离
-      var ch = that.$refs['myScrollbar'].$refs['wrap'].clientHeight // 滚动条外容器的高度
-      if (st + ch >= sh) {
-        //到底了-业务逻辑
-        this.onLoad()
-      }
     }
   },
   created() {
     this.getSongList()
   },
   watch: {},
-  mounted() {
-    var that = this
-    // 监听滚动事件
-    document.getElementById('resultScroll').addEventListener('scroll', that.handleScroll, true)
-  }
+  mounted() {}
 }
 </script>
 <style>
+.about {
+  text-align: center;
+}
 </style>

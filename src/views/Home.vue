@@ -9,7 +9,7 @@
           <van-grid-item
             text="退出登录"
             @click="onClickLeft"
-            url="/login"
+            url="/"
           />
         </van-grid>
       </template>
@@ -26,7 +26,7 @@
     </van-swipe>
     <van-grid
       clickable
-      :column-num="4"
+      :column-num="5"
     >
       <van-grid-item
         text="个人中心"
@@ -44,6 +44,10 @@
         text="电台"
         to="/dj"
       />
+      <van-grid-item
+        text="排行榜"
+        to="/list"
+      />
     </van-grid>
 
   </div>
@@ -54,7 +58,7 @@ export default {
   name: 'Home',
   methods: {
     onClickLeft() {
-      this.$router.push('/')
+      this.$router.push('/login')
       localStorage.removeItem('token')
     }
   }
@@ -65,6 +69,7 @@ export default {
   margin-top: 10px;
   color: #fff;
   font-size: 20px;
+  text-align: center;
   line-height: 150px;
   background-color: #39a9ed;
 }
