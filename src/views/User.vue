@@ -41,13 +41,13 @@
           <div>性别：{{value}}</div>
           <div>被关注：{{user.followeds}}</div>
           <div>喜欢：{{user.follows}}</div>
-          <!-- <van-field
+          <van-field
             clickable
             label="性别"
             :value="value"
             placeholder="选择性别"
             @click="showPicker = true"
-          /> -->
+          />
         </div>
       </template>
     </van-card>
@@ -76,6 +76,8 @@ export default {
   data() {
     return {
       account: JSON.parse(localStorage.getItem('account')),
+      profile: JSON.parse(localStorage.getItem('profile')),
+      // token: JSON.parse(localStorage.getItem('token')),
       user: {},
       activeNames: ['1'],
       personal: {
@@ -103,7 +105,7 @@ export default {
     getAccount() {
       this.axios({
         method: 'get',
-        url: 'http://localhost:3000/user/detail?uid=' + this.account.id
+        url: 'http://localhost:3000/user/detail?uid=' + this.profile.userId
       }).then((res) => {
         console.log(res.data)
         this.user = res.data.profile
@@ -113,8 +115,10 @@ export default {
         this.personal.nickname = this.user.nickname
         this.personal.birthday = this.user.birthday
         this.personal.province = this.user.province
-        console.log(this.user)
+        console.log(res)
         this.coverImgUrl = this.user.backgroundUrl
+        localStorage.removeItem('account')
+        localStorage.setItem('account', JSON.stringify(res.data))
         this.gender()
       })
     },
@@ -127,25 +131,20 @@ export default {
     //   })
     // },
     updateAccount() {
-      var getTimestamp = new Date().getTime()
       this.axios({
-        method: 'post',
-        url:
-          'http://localhost:3000/user/update?gender=' +
-          this.personal.gender +
-          '&signature=111' +
-          this.personal.signature +
-          '&city=' +
-          this.personal.city +
-          '&nickname=' +
-          this.personal.nickname +
-          '&birthday=' +
-          this.personal.birthday +
-          '&province=' +
-          this.personal.province
+        method: 'get',
+        url: 'http://localhost:3000/user/update?',
+        params: {
+          gender: this.personal.gender,
+          signature: this.personal.signature,
+          city: this.personal.city,
+          nickname: this.personal.nickname,
+          birthday: this.personal.birthday,
+          province: this.personal.personal
+        }
       }).then((res) => {
         console.log(res)
-        this.getAccount()
+        // this.getAccount()
       })
     },
     onConfirm(value) {

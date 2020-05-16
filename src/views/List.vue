@@ -18,6 +18,7 @@
       <div
         v-for="(item,index) in toplist.slice(0,4)"
         :key="index"
+        @click="getList(index)"
       >
         <van-card
           :thumb="item.coverImgUrl"
@@ -52,8 +53,8 @@
             :key="index"
             :icon="item.coverImgUrl"
             :text="item.name"
+            @click="getList(index+4)"
           ></van-grid-item>
-
         </van-grid>
       </van-list>
     </div>
@@ -70,6 +71,7 @@
             :key="index"
             :icon="item.coverImgUrl"
             :text="item.name"
+            @click="getList(index+10)"
           />
         </van-grid>
       </van-list>
@@ -83,10 +85,11 @@
           icon-size="100px"
         >
           <van-grid-item
-            v-for="(item,index) in toplist.slice(16)"
+            v-for="(item,index) in toplist.slice(16,34)"
             :key="index"
             :icon="item.coverImgUrl"
             :text="item.name"
+            @click="getList(index+16)"
           />
         </van-grid>
       </van-list>
@@ -115,9 +118,17 @@ export default {
         this.toplist = res.data.list
         this.rewardToplist = res.data.rewardToplist
         this.artistToplist = res.data.artistToplist
-        console.log(this.toplist)
-        console.log(this.rewardToplist)
-        console.log(this.artistToplist)
+        // console.log(this.toplist)
+      })
+    },
+    getList(id) {
+      this.axios({
+        method: 'get',
+        url: 'http://localhost:3000/top/list?idx=' + id
+      }).then((res) => {
+        console.log(res)
+        localStorage.setItem('listdetail', JSON.stringify(res.data.playlist))
+        this.$router.push('/listdetail')
       })
     }
   },

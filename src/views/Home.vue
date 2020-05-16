@@ -1,6 +1,17 @@
 <template>
   <div>
     <van-nav-bar title="主页">
+      <template #left>
+        <van-grid
+          clickable
+          :column-num="1"
+        >
+          <van-grid-item
+            text="个人中心"
+            to="/user"
+          />
+        </van-grid>
+      </template>
       <template #right>
         <van-grid
           clickable
@@ -28,10 +39,7 @@
       clickable
       :column-num="5"
     >
-      <van-grid-item
-        text="个人中心"
-        to="/user"
-      />
+
       <van-grid-item
         text="每日推荐"
         to="/daily"
@@ -39,6 +47,10 @@
       <van-grid-item
         text="歌单"
         to="/dailylist"
+      />
+      <van-grid-item
+        text="MV"
+        to="/mv"
       />
       <van-grid-item
         text="电台"

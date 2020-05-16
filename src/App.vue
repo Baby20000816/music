@@ -23,6 +23,7 @@ export default {
   /* text-align: center; */
   color: #2c3e50;
   margin-bottom: 60px;
+  background-color: #fff;
 }
 
 #nav {

@@ -50,6 +50,16 @@ const routes = [
     path: '/list',
     name: 'List',
     component: () => import('../views/List.vue')
+  },
+  {
+    path: '/listdetail',
+    name: 'ListDetail',
+    component: () => import('../views/ListDetail.vue')
+  },
+  {
+    path: '/mv',
+    name: 'Mv',
+    component: () => import('../views/Mv.vue')
   }
 ]
 
