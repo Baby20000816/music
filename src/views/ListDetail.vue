@@ -21,12 +21,12 @@
           clickable
           :column-num="1"
         >
-          <van-button
+          <!-- <van-button
             icon="star-o"
             type="primary"
             color="#7232dd"
             @click="showPopup"
-          >播放列表</van-button>
+          >播放列表</van-button> -->
         </van-grid>
       </template>
     </van-nav-bar>
@@ -89,6 +89,7 @@
       ref='audio'
       controls
       autoplay
+      hidden
       @ended="autonext()"
     >
       您的浏览器不支持 audio 元素。
@@ -105,7 +106,7 @@ export default {
       list: JSON.parse(localStorage.getItem('listdetail')),
       show: false,
       count: 0,
-      info: [],
+      info: JSON.parse(localStorage.getItem('info')),
       font: true,
       icon: false,
       now: 0,
@@ -125,14 +126,21 @@ export default {
         url: 'http://localhost:3000/song/url?id=' + id
       }).then((res) => {
         this.toplist = res.data.data[0].url
-        this.$refs.audio.src = this.toplist
-        this.icon = true
+        // this.$refs.audio.src = this.toplist
+        // this.icon = true
         this.url[this.count] = res.data.data[0].url
+
         this.axios({
           method: 'get',
           url: 'http://localhost:3000/song/detail?ids=' + id
         }).then((result) => {
           this.info[this.count++] = result.data.songs[0]
+          localStorage.removeItem('info')
+          localStorage.setItem('info', JSON.stringify(this.info))
+          localStorage.removeItem('nowplay')
+          localStorage.setItem('nowplay', JSON.stringify(result.data.songs[0]))
+          localStorage.removeItem('url')
+          localStorage.setItem('url', JSON.stringify(this.url))
         })
       })
     },
@@ -146,25 +154,36 @@ export default {
         url: 'http://localhost:3000/song/url?id=' + id
       }).then((res) => {
         this.toplist = res.data.data[0].url
-        this.$refs.audio.src = this.toplist
+        // this.$refs.audio.src = this.toplist
         this.now = now
-        console.log(this.now)
+        localStorage.removeItem('nowplay')
+        localStorage.setItem('nowplay', JSON.stringify(res.data.data))
+        console.log(res)
       })
     },
     del(id) {
       this.info[id] = this.info
     },
     autonext() {
-      console.log(this.url[this.now + 1])
-      this.$refs.audio.src = this.url[this.now + 1]
-      this.$refs.audio.play()
+      this.now++
+      if (this.now >= this.url.length) {
+        this.$refs.audio.src = this.url[0]
+        this.$refs.audio.play()
+        this.now = 0
+      } else {
+        this.$refs.audio.src = this.url[this.now]
+        this.$refs.audio.play()
+      }
     },
     playall() {
       this.$refs.audio.src = this.url[this.now + 1]
       this.$refs.audio.play()
     }
   },
-  created() {},
+  created() {
+    this.count = this.info.length
+    console.log(this.info.length)
+  },
   watch: {},
   mounted() {}
 }

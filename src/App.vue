@@ -12,6 +12,11 @@ export default {
   name: 'app',
   components: {
     Footer
+  },
+  data() {
+    return {
+      info: JSON.parse(localStorage.getItem('info'))
+    }
   }
 }
 </script>

@@ -52,7 +52,10 @@ export default {
         password: ''
       },
       currentTime: '',
-      user: {}
+      user: {},
+      info: [],
+      nowplay: [],
+      url: []
     }
   },
   methods: {
@@ -67,6 +70,9 @@ export default {
           localStorage.setItem('token', data.token)
           localStorage.setItem('profile', JSON.stringify(data.profile))
           localStorage.setItem('account', JSON.stringify(data.account))
+          localStorage.setItem('info', JSON.stringify(this.info))
+          localStorage.setItem('url', JSON.stringify(this.url))
+          localStorage.setItem('nowplay', JSON.stringify(this.nowplay))
           Toast('登陆成功')
 
           this.$router.push('/home')
